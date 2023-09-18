@@ -1,0 +1,43 @@
+//PrintList
+
+//if len(tasks) == 0 {
+	//fmt.Println("No hay tareas pendientes")
+	//} else {
+	//for id, task := range tasks {
+	//	fmt.Printf("%d. %s: %s (Completado: %t)\n", id, task.name, task.description, task.completed)
+	//}
+//}
+
+//tasks := make(map[int]task)
+	
+//InsertList
+
+//lastID := 0
+//lastID++
+//tasks[lastID] = task{name: name, description: description, completed: false}
+//fmt.Printf("Tarea agregada con el ID: %d\n", lastID)
+//}
+
+
+//CheckList
+
+//if task, ok := tasks[id]; ok {
+	//task.completed = true
+	//tasks[id] = task
+	//fmt.Printf("Tarea con ID %d completada\n", id)
+	
+//} else {
+	//fmt.Println("id de tarea no valido")
+//}
+//}
+
+
+//DeleteList
+
+//if _, ok := tasks[id]; ok {
+	//delete(tasks, id)
+	//fmt.Printf("La tarea con id %d ha sido eliminada\n", id)
+//} else {
+	//fmt.Println("id de tarea no valido")
+//}
+//}
