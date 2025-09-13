@@ -1,18 +1,28 @@
-# Go Task Manager
+# Go Task Manager API
 
-This is a simple command-line task manager written in Go. It allows you to manage a list of tasks stored in a MySQL database.
+This is a simple RESTful API for a task manager application, written in Go. It's designed as a microservice and can be easily deployed as a proof of concept.
 
 ## Features
 
-*   View all tasks
-*   Add a new task
-*   Mark a task as completed
-*   Delete a task
+*   **RESTful API:** Provides endpoints for CRUD (Create, Read, Update, Delete) operations on tasks.
+*   **Flexible Database:** Uses GORM for object-relational mapping, with support for SQLite (for development) and PostgreSQL (for production).
+*   **Auto-generated Documentation:** API documentation is automatically generated using Swagger/OpenAPI.
 
-## Prerequisites
+## API Documentation
 
-*   Go (version 1.15 or later)
-*   MySQL
+The API documentation is available at the `/swagger/index.html` endpoint. For example, if you are running the application locally, you can access the documentation at `http://localhost:8080/swagger/index.html`.
+
+## API Endpoints
+
+All endpoints are prefixed with `/api/v1`.
+
+| Method | Endpoint      | Description          |
+|--------|---------------|----------------------|
+| POST   | `/tasks`      | Create a new task    |
+| GET    | `/tasks`      | Get all tasks        |
+| GET    | `/tasks/{id}` | Get a task by ID     |
+| PUT    | `/tasks/{id}` | Update a task        |
+| DELETE | `/tasks/{id}` | Delete a task        |
 
 ## Setup
 
@@ -23,45 +33,36 @@ This is a simple command-line task manager written in Go. It allows you to manag
     cd backend-pasante-sebas
     ```
 
-2.  **Set up the database:**
-
-    *   Make sure you have MySQL installed and running.
-    *   Create a database named `tasks`.
-    *   Create a table named `task_list` with the following schema:
-
-    ```sql
-    CREATE TABLE task_list (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        tasks VARCHAR(255) NOT NULL,
-        description TEXT,
-        completed BOOLEAN NOT NULL DEFAULT FALSE
-    );
-    ```
-
-3.  **Install dependencies:**
+2.  **Install dependencies:**
 
     ```bash
     go mod tidy
     ```
+
+3.  **Configure the environment:**
+
+    The application can be configured using environment variables. The following variables are available:
+
+    *   `DB_DRIVER`: The database driver to use. Can be `sqlite` or `postgres`. Defaults to `sqlite`.
+    *   `DSN`: The data source name for the database connection. Defaults to `tasks.db` for SQLite. For PostgreSQL, it should be a connection string like `host=localhost user=user password=password dbname=tasks port=5432 sslmode=disable`.
+    *   `PORT`: The port on which to run the server. Defaults to `8080`.
 
 ## Usage
 
 1.  **Run the application:**
 
     ```bash
-    go run main.go
+    go run cmd/api/main.go
     ```
 
-2.  **Follow the on-screen menu:**
+2.  **Access the API:**
 
-    The application will present you with a menu of options to manage your tasks. Simply enter the number corresponding to the action you want to perform.
+    You can use a tool like `curl` or Postman to interact with the API.
 
-    ```
-    Selecciona la opción deseada:
-    1. Ver tareas
-    2. Agregar tarea
-    3. Marcar tarea como completada
-    4. Eliminar tarea
-    5. Salir
-    Opción:
+    **Example: Create a new task**
+
+    ```bash
+    curl -X POST http://localhost:8080/api/v1/tasks \
+    -H "Content-Type: application/json" \
+    -d '{"name": "My new task", "description": "This is a new task"}'
     ```
